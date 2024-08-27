@@ -34,6 +34,9 @@ country = st.text_input("Country")
 # Timestamp handling
 timestamp = st.date_input("Timestamp", value=pd.to_datetime("today"))
 
+# Threshold slider
+threshold = st.slider("Select Threshold", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+
 # Prepare the input data
 if st.button("Predict"):
     try:
@@ -86,9 +89,8 @@ if st.button("Predict"):
         # Print model probability for debugging
         st.write(f"Model Probability: {prediction_prob}")
 
-        # Adjust the threshold for classification
-        threshold = 0.7  # You can tweak this threshold
-        prediction_binary = 1 if prediction_prob > threshold else 0  # Convert probability to binary
+        # Convert probability to binary based on the selected threshold
+        prediction_binary = 1 if prediction_prob > threshold else 0
 
         # Display the result
         st.write(f"Predicted CTR: {'Yes' if prediction_binary == 1 else 'No'}")
